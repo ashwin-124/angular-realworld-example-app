@@ -44,14 +44,17 @@ Cypress.Commands.add("login", () => {
 
       const userToken = user.token;
 
+      //  Creating Cypress Alias so that we can reuse it all across the test suit
+      cy.wrap(userToken).as("accessToken");
+      // cy.get("@accessToken").then((token) => {
+      //   cy.log(`The access token is ${token}`);
+      // });
+
       cy.visit("/", {
         onBeforeLoad(window) {
           window.localStorage.setItem("token", userToken);
         },
       });
-
-      //  Creating Cypress Alias so that we can reuse it all across the test suit
-      cy.wrap(userToken).as("accessToken");
     }
   });
 });
